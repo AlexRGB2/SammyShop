@@ -1,0 +1,56 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" routerLink="/">
+      <img src="../assets/images/logo.png" alt="Logo" width="30" height="30" class="d-inline-block align-text-top ">
+      SammyShop
+    </a>
+    <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#itemsMenu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div id="itemsMenu" class="collapse navbar-collapse mt-2">
+      <ul class="navbar-nav ms-3">
+        <li class="nav-item"><a class="nav-link" routerLink="/home">Inicio</a></li>
+        <li class="nav-item"><a class="nav-link" routerLink="/vender">Vender</a></li>
+        <li class="nav-item"><a class="nav-link" routerLink="/promociones">Promociones</a></li>
+        <li class="btn-group" dropdown>
+          <a id="button-animated" dropdownToggle role="button" class="nav-link dropdown-toggle"
+            aria-controls="dropdown-animated">
+            Categorías <span class="caret"></span>
+          </a>
+          <ul id="dropdown-animated" *dropdownMenu class="dropdown-menu  dropdown-menu-dark" role="menu"
+            aria-labelledby="button-animated">
+            <li role="menuitem" *ngFor="let item of categorias">
+              <a class="dropdown-item" (click)="enviarId(item.categoria.id_categoria)">{{item.categoria.nombre}}</a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item"><a class="nav-link" routerLink="/ayuda">Ayuda</a></li>
+        <li (click)="openModal()" class="nav-item">
+          <div class="row">
+            <div class="col text-lg-center">
+              <p class="nav-link"><i class="fa-solid fa-cart-shopping"></i></p>
+            </div>
+            <div class="col">
+              <div *ngIf="(myCart$ | async)?.length">
+                <p class="contador">{{ (myCart$ | async)?.length }}</p>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <form class="d-flex" role="search">
+      <input class="form-control me-1" type="search" placeholder="Buscar productos" aria-label="Buscar"
+        [(ngModel)]="searchQuery" [ngModelOptions]="{standalone: true}">
+      <button class="btn btn-light" type="submit" (click)="buscarProducto()"><i
+          class="fa-solid fa-magnifying-glass"></i></button>
+    </form>
+  </div>
+</nav>
+
+<!-- <li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown">Categorías</a>
+  <ul class="dropdown-menu dropdown-menu-dark">
+
+  </ul>
+</li> -->

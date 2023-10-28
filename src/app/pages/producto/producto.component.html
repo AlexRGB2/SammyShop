@@ -1,0 +1,32 @@
+<div class="container mt-2" *ngIf="productos.length > 0; else mensaje">
+  <div class="row">
+    <div *ngFor="let item of productos" class="col-sm-4">
+      <div *ngIf="!item.producto.baja_logica" class="card text-bg-dark mb-3" style="min-height: 220px;">
+        <div class="row g-0">
+          <div class="col-md-4 d-flex justify-content-center align-items-center">
+            <img
+              src="https://www.optimum.com/mobile/sites/default/files/product/apple-iphone15promax-naturaltitanium-side.png"
+              class="img-fluid rounded-start">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title">{{item.producto.nombre}}</h5>
+              <p class="card-text"><strong>Descripción: </strong>{{item.producto.descripcion}}</p>
+              <p class="card-text"><strong>Precio: </strong>{{item.producto.precio | currency}}</p>
+              <p class="card-text"><strong>Marca: </strong>{{item.producto.marca}}</p>
+              <button class="btn btn-light" (click)="addToCart(item.producto); showToast(item.producto.nombre)">Agregar
+                al
+                carrito</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #mensaje>
+  <div class="container">
+    <ngx-loading [show]="true"></ngx-loading>
+  </div>
+</ng-template>
