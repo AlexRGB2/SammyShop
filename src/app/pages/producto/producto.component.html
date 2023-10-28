@@ -1,12 +1,10 @@
-<div class="container mt-2" *ngIf="productos.length > 0; else mensaje">
+<div class="container mt-2" *ngIf="products$ | async as productos; else texto">
   <div class="row">
     <div *ngFor="let item of productos" class="col-sm-4">
       <div *ngIf="!item.producto.baja_logica" class="card text-bg-dark mb-3" style="min-height: 220px;">
         <div class="row g-0">
           <div class="col-md-4 d-flex justify-content-center align-items-center">
-            <img
-              src="https://www.optimum.com/mobile/sites/default/files/product/apple-iphone15promax-naturaltitanium-side.png"
-              class="img-fluid rounded-start">
+            <img [src]="getProductImage(item.producto.clave)" class="img-fluid rounded-start ms-3">
           </div>
           <div class="col-md-8">
             <div class="card-body">
@@ -25,8 +23,10 @@
   </div>
 </div>
 
-<ng-template #mensaje>
-  <div class="container">
-    <ngx-loading [show]="true"></ngx-loading>
+<ng-template #texto>
+  <div class="container text-lg-center">
+    <h2>No hay productos</h2>
   </div>
 </ng-template>
+
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>

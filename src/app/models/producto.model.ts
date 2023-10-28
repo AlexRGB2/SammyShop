@@ -1,4 +1,5 @@
 import { Categoria } from "./categoria.model";
+import { Cliente } from "./cliente.model";
 
 export interface Mensaje {
   codigo: string;
@@ -9,6 +10,7 @@ export interface Mensaje {
 export interface ProductoResponse {
   producto: Producto;
   categoria: Categoria;
+  usuario: Cliente;
 }
 
 export interface Producto {

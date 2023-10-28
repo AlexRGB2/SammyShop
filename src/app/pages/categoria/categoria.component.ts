@@ -10,7 +10,7 @@ import { CarritoService } from 'src/app/services/carrito.service';
 })
 export class CategoriaComponent implements OnInit {
   id: number | string | null = 0;
-  productos: ProductoResponse[] = [];
+  products$ = this.carritoService.products$;
 
   constructor(private carritoService: CarritoService, private route: ActivatedRoute) {
     this.route.params.subscribe(params => {
@@ -26,7 +26,7 @@ export class CategoriaComponent implements OnInit {
   getProductsbyCategory(id: number | string | null) {
     this.carritoService.getProductsbyCategory(id).subscribe((data) => {
       const respuesta: Mensaje = JSON.parse(data[0].filtrar_producto);
-      return this.productos = respuesta.info;
+      return this.carritoService.actualizarProductos(respuesta.info);
     })
   }
 

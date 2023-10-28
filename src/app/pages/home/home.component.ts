@@ -8,7 +8,7 @@ import { CarritoService } from 'src/app/services/carrito.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  public productos: ProductoResponse[] = [];
+  products$ = this.carritoService.products$;
 
   constructor(private carritoService: CarritoService) { }
 
@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit {
   getProducts() {
     this.carritoService.getAllProducts().subscribe((data) => {
       const respuesta: Mensaje = JSON.parse(data[0].filtrar_producto);
-      return this.productos = respuesta.info;
+      return this.carritoService.actualizarProductos(respuesta.info);
     })
   }
 }

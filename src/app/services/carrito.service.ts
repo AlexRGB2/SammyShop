@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Producto } from '../models/producto.model';
+import { Producto, ProductoResponse } from '../models/producto.model';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { ImageResponse } from '../models/imageResponse.model';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,10 @@ export class CarritoService {
   private myCart = new BehaviorSubject<Producto[]>([]);
   myCart$ = this.myCart.asObservable();
 
+  //productos observable
+  private products = new BehaviorSubject<ProductoResponse[]>([]);
+  products$ = this.products.asObservable();
+
   constructor(private httpClient: HttpClient) { }
 
   getAllProducts(): Observable<any> {
@@ -25,6 +30,10 @@ export class CarritoService {
 
     const response = this.httpClient.post(`${this.baseUrl}api/producto/obtener`, json);
     return response
+  }
+
+  getImagesProducts(): Observable<any> {
+    return this.httpClient.get<ImageResponse>(`${this.baseUrl}api/image`);
   }
 
   getProductsbyCategory(id: number | string | null): Observable<any> {
@@ -93,5 +102,9 @@ export class CarritoService {
   totalCart() {
     const total = this.myList.reduce(function (acc, product) { return acc + (product.cantidad * product.precio); }, 0)
     return total
+  }
+
+  actualizarProductos(producto: ProductoResponse[]) {
+    this.products.next(producto);
   }
 }

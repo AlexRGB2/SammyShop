@@ -5,13 +5,14 @@ import { CarritoComponent } from '../carrito/carrito.component';
 import { BsDropdownConfig } from 'ngx-bootstrap/dropdown';
 import { Router } from '@angular/router';
 import { Categoria } from 'src/app/models/categoria.model';
-import { HomeComponent } from '../home/home.component';
+import { ToastrService } from 'ngx-toastr';
+import { ProductoResponse } from '../../models/producto.model';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
-  providers: [{ provide: BsDropdownConfig, useValue: { isAnimated: true, autoClose: true } }, HomeComponent]
+  providers: [{ provide: BsDropdownConfig, useValue: { isAnimated: true, autoClose: true } }]
 })
 export class HeaderComponent {
   modalRef?: BsModalRef;
@@ -19,9 +20,10 @@ export class HeaderComponent {
 
   viewCart: boolean = false;
   myCart$ = this.carritoService.myCart$;
+  products$ = this.carritoService.products$;
   categorias: Categoria[] = [];
 
-  constructor(private carritoService: CarritoService, private modalService: BsModalService, private router: Router, private homeComponent: HomeComponent) {
+  constructor(private carritoService: CarritoService, private modalService: BsModalService, private router: Router, private toastr: ToastrService) {
     this.getCategories();
   }
 
@@ -42,9 +44,17 @@ export class HeaderComponent {
 
   buscarProducto() {
     return this.carritoService.getProductsByName(this.searchQuery).subscribe((resp) => {
+
       const respuesta = JSON.parse(resp[0].filtrar_producto);
-      console.log(respuesta.info);
-      return this.homeComponent.productos = respuesta.info;
+
+      if (respuesta.info === null) {
+        this.toastr.info(`No se encontraron productos`);
+        console.log(this.products$);
+        return this.carritoService.actualizarProductos(respuesta.info);
+      }
+      if (respuesta.info !== null) {
+        return this.carritoService.actualizarProductos(respuesta.info);
+      }
     })
   }
 }
