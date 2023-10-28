@@ -49,7 +49,6 @@ export class HeaderComponent {
 
       if (respuesta.info === null) {
         this.toastr.info(`No se encontraron productos`);
-        console.log(this.products$);
         return this.carritoService.actualizarProductos(respuesta.info);
       }
       if (respuesta.info !== null) {
