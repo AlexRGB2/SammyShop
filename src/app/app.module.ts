@@ -19,8 +19,10 @@ import { CategoriaComponent } from './pages/categoria/categoria.component';
 import { CompraComponent } from './pages/compra/compra.component';
 import { FooterComponent } from './pages/footer/footer.component';
 import { ToastrModule } from 'ngx-toastr';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxLoadingModule, ngxLoadingAnimationTypes } from 'ngx-loading';
+import { LoginComponent } from './pages/login/login.component';
+import { RegistroComponent } from './pages/registro/registro..component';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,9 @@ import { NgxLoadingModule, ngxLoadingAnimationTypes } from 'ngx-loading';
     ProductoComponent,
     CategoriaComponent,
     CompraComponent,
-    FooterComponent
+    FooterComponent,
+    LoginComponent,
+    RegistroComponent
   ],
   imports: [
     BrowserModule,
@@ -47,6 +51,7 @@ import { NgxLoadingModule, ngxLoadingAnimationTypes } from 'ngx-loading';
       preventDuplicates: true,
     }),
     FormsModule,
+    ReactiveFormsModule,
     NgxLoadingModule.forRoot({
       animationType: ngxLoadingAnimationTypes.wanderingCubes,
       backdropBackgroundColour: "rgba(0,0,0,0.1)",

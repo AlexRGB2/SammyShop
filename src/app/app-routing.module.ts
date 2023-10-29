@@ -4,9 +4,13 @@ import { CarritoComponent } from './pages/carrito/carrito.component';
 import { HomeComponent } from './pages/home/home.component';
 import { CategoriaComponent } from './pages/categoria/categoria.component';
 import { CompraComponent } from './pages/compra/compra.component';
+import { LoginComponent } from './pages/login/login.component';
+import { RegistroComponent } from './pages/registro/registro..component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: 'login', component: LoginComponent },
+  { path: 'registro', component: RegistroComponent },
   { path: 'home', component: HomeComponent },
   { path: 'cart', component: CarritoComponent },
   { path: 'categoria/:id', component: CategoriaComponent, runGuardsAndResolvers: 'always', },
