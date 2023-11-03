@@ -42,6 +42,8 @@ export class CompraComponent implements OnDestroy {
   nuevaDireccion$ = this.nuevaDireccion.asObservable();
   thereIsAddress: boolean = false;
   direccionCliente: any;
+  total = this.carritoService.totalCart();
+  loading: boolean = false;
 
   direccion = this._formBuilder.group({
     cp: ['', Validators.required],
@@ -106,6 +108,7 @@ export class CompraComponent implements OnDestroy {
    * @returns - void
    */
   async compra() {
+    this.loading = true;
     let tarjetaValida;
 
     if (!this.thereIsAddress) {
@@ -122,7 +125,6 @@ export class CompraComponent implements OnDestroy {
 
         } else {
           this.insertBuy();
-
         }
       }
     } else {
@@ -170,6 +172,7 @@ export class CompraComponent implements OnDestroy {
         this.toastr.success("Compra realizada con exito");
         this.carritoService.deleteAllCart();
         location.assign('/home')
+        this.loading = false;
       }
     });
   }

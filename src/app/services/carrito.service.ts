@@ -89,7 +89,6 @@ export class CarritoService {
       }
     }
 
-    // Actualizar el stock del producto
     product.stock -= product.cantidad;
   }
 
