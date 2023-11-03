@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { Cliente } from '../models/cliente.model';
+import { DireccionBack } from '../models/cliente.model';
 
 @Injectable({
   providedIn: 'root'
@@ -19,4 +18,16 @@ export class ClienteService {
   registro(formatoFuncion: any) {
     return this.httpClient.post(this.baseUrl + 'api/cliente/gestionar', formatoFuncion);
   }
+
+  insertDirection(direccion: DireccionBack) {
+    return this.httpClient.post(`${this.baseUrl}api/direccion/gestionar`, direccion);
+  }
+
+  getDirection(id: number) {
+    const json = {
+      id_cliente: id
+    }
+    return this.httpClient.post(`${this.baseUrl}api/direccion/obtener`, json);
+  }
+
 }

@@ -65,7 +65,6 @@ export class CarritoService {
   }
 
   addProduct(product: Producto) {
-
     if (this.myList.length === 0) {
       product.cantidad = 1;
       this.myList.push(product);
@@ -75,15 +74,23 @@ export class CarritoService {
         return element.id_producto === product.id_producto
       })
       if (productMod) {
-        productMod.cantidad = productMod.cantidad + 1;
+        if (productMod.cantidad + product.cantidad > productMod.stock) {
+          return;
+        }
+        productMod.cantidad = productMod.cantidad + product.cantidad;
         this.myCart.next(this.myList);
       } else {
+        if (product.cantidad > product.stock) {
+          return;
+        }
         product.cantidad = 1;
         this.myList.push(product);
         this.myCart.next(this.myList);
       }
-
     }
+
+    // Actualizar el stock del producto
+    product.stock -= product.cantidad;
   }
 
   findProductById(id: number) {
@@ -97,6 +104,10 @@ export class CarritoService {
       return product.id_producto != id
     })
     this.myCart.next(this.myList);
+  }
+
+  deleteAllCart() {
+    this.myList = [];
   }
 
   totalCart() {

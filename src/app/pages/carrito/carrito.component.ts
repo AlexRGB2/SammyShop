@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { CarritoService } from 'src/app/services/carrito.service';
+import { Router } from '@angular/router';
+import { ClienteService } from 'src/app/services/cliente.service';
+import { Cliente } from 'src/app/models/cliente.model';
 
 @Component({
   selector: 'app-carrito',
@@ -11,9 +14,11 @@ export class CarritoComponent {
   modalRef?: BsModalRef;
   myCart$ = this.carritoService.myCart$;
 
-  viewCart: boolean = false;
-
-  constructor(private carritoService: CarritoService, private modalService: BsModalService) { }
+  constructor
+    (private carritoService: CarritoService,
+      private modalService: BsModalService,
+      private clienteService: ClienteService,
+      private router: Router) { }
 
   updateUnits(operation: string, id: number) {
 
@@ -48,5 +53,16 @@ export class CarritoComponent {
 
   closeModal() {
     this.modalService.hide();
+  }
+
+  checkIsLogin() {
+    const cliente: Cliente = JSON.parse(localStorage.getItem('cliente') || '{}');
+    if (cliente.idcliente !== undefined) {
+      this.router.navigate(['compra']);
+      this.closeModal();
+    } else {
+      this.router.navigate(['login']);
+      this.closeModal();
+    }
   }
 }

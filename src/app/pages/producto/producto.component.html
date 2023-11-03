@@ -1,32 +1,28 @@
-<div class="container mt-2" *ngIf="products$ | async as productos; else texto">
-  <div class="row">
-    <div *ngFor="let item of productos" class="col-sm-4">
-      <div *ngIf="!item.producto.baja_logica" class="card text-bg-dark mb-3" style="min-height: 220px;">
-        <div class="row g-0">
-          <div class="col-md-4 d-flex justify-content-center align-items-center">
-            <img [src]="getProductImage(item.producto.clave)" class="img-fluid rounded-start ms-3">
-          </div>
-          <div class="col-md-8">
-            <div class="card-body">
-              <h5 class="card-title">{{item.producto.nombre}}</h5>
-              <p class="card-text"><strong>Descripción: </strong>{{item.producto.descripcion}}</p>
-              <p class="card-text"><strong>Precio: </strong>{{item.producto.precio | currency}}</p>
-              <p class="card-text"><strong>Marca: </strong>{{item.producto.marca}}</p>
-              <button class="btn btn-light" (click)="addToCart(item.producto); showToast(item.producto.nombre)">Agregar
-                al
-                carrito</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
 <ng-template #texto>
   <div class="container text-lg-center">
     <h2>No hay productos</h2>
   </div>
 </ng-template>
 
+
+<div *ngIf="products$ | async as productos; else texto">
+  <section class="parent">
+    <div class="wrapper float" *ngFor="let item of productos">
+      <div class="product-img">
+        <img [src]="getProductImage(item.producto.clave)" height="420" width="327">
+      </div>
+      <div class="product-info">
+        <div class="product-text">
+          <h1>{{item.producto.nombre}}</h1>
+          <p>Descripción: {{item.producto.descripcion}} <br>Marca: {{item.producto.marca}} </p>
+        </div>
+        <div class="product-price-btn">
+          <p><span>{{item.producto.precio | currency: 'MXN' }}</span></p>
+          <button type="button" (click)="addToCart(item.producto); showToast(item.producto.nombre)">Agregar al
+            Carrito</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
 <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>

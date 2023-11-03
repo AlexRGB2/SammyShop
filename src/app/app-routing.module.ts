@@ -5,7 +5,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { CategoriaComponent } from './pages/categoria/categoria.component';
 import { CompraComponent } from './pages/compra/compra.component';
 import { LoginComponent } from './pages/login/login.component';
-import { RegistroComponent } from './pages/registro/registro..component';
+import { RegistroComponent } from './pages/registro/registro.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
