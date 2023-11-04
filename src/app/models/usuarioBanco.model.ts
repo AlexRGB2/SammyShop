@@ -1,10 +1,8 @@
 export interface UsuarioBanco {
-  userid: number;
-  nombre: string;
-  apellido: string;
-  balance: number;
-  numerotarjeta: string;
-  fechavencimiento: string;
-  cvv: number;
-  statuscuenta: string;
+  nombre: string | null;
+  apellido: string | null;
+  numerotarjeta: string | null;
+  fechavencimiento: string | undefined;
+  cvv: number | null;
+  monto: number | null;
 }

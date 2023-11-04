@@ -1,27 +1,34 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Cliente } from 'src/app/models/cliente.model';
 import { ClienteService } from 'src/app/services/cliente.service';
+import { HeaderComponent } from '../header/header.component';
 
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
+  // providers: [HeaderComponent]
 })
 export class LoginComponent {
   formularioLogin: FormGroup;
   cliente: Cliente = {
     contrasena: "",
     correoelectronico: "",
-    direccion: "",
     idcliente: 0,
     nombre: "",
     numerotelefono: 415
   };
 
-  constructor(private clienteService: ClienteService, private formBuilder: FormBuilder, private toastr: ToastrService) {
+  constructor(
+    private clienteService: ClienteService,
+    private formBuilder: FormBuilder,
+    private toastr: ToastrService,
+    // private header: HeaderComponent,
+    private router: Router) {
     this.formularioLogin = this.formBuilder.group({
       correoElectronico: ['', Validators.required], // Definir validadores según tus necesidades
       contrasena: ['', Validators.required] // Definir validadores según tus necesidades
@@ -39,24 +46,22 @@ export class LoginComponent {
       const correoElectronico = this.formularioLogin.get('correoElectronico')?.value;
       const contrasena = this.formularioLogin.get('contrasena')?.value;
 
-      // Realizar acciones con los datos obtenidos
-      console.log(correoElectronico, contrasena);
-
       this.cliente.correoelectronico = correoElectronico;
       this.cliente.contrasena = contrasena;
       formatoFuncion.cliente = this.cliente;
-      console.log(this.cliente);
-      console.log(formatoFuncion);
     }
 
     this.clienteService.login(formatoFuncion).subscribe((res: any) => {
       if (res != null) {
         let jsonRes = JSON.parse(res[0].gestionar_cliente);
-        console.log(jsonRes);
 
         if (jsonRes.codigo == 200) {
-          this.clienteService.cliente = jsonRes.cliente[0];
-          console.log(this.clienteService.cliente);
+          this.clienteService.cliente = jsonRes.cliente[0]
+          // console.log(this.header.cliente);
+          localStorage.setItem('cliente', JSON.stringify(jsonRes.cliente[0]));
+          // this.header.cliente = JSON.parse(localStorage.getItem('cliente') || '{}');
+          // console.log(this.header.cliente);
+          this.router.navigate(['home'])
           this.showToast(jsonRes.codigo, jsonRes.mensaje);
         } else if (jsonRes.codigo == -1) {
           this.showToast(jsonRes.codigo, jsonRes.mensaje);

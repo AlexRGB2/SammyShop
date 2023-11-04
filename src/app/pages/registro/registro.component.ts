@@ -16,7 +16,6 @@ export class RegistroComponent {
   cliente: Cliente = {
     contrasena: "",
     correoelectronico: "",
-    direccion: "",
     idcliente: 0,
     nombre: "",
     numerotelefono: 0
@@ -63,7 +62,7 @@ export class RegistroComponent {
 
         if (jsonRes.codigo == 200) {
           this.clienteService.cliente = jsonRes.cliente[0];
-          console.log(this.clienteService.cliente);
+          localStorage.setItem('cliente', JSON.stringify(jsonRes.cliente[0]));
           this.showToast(jsonRes.codigo, jsonRes.mensaje);
           this.router.navigate(['/login']);
         } else if (jsonRes.codigo == -1) {

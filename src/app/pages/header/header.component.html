@@ -7,11 +7,17 @@
     <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#itemsMenu">
       <span class="navbar-toggler-icon"></span>
     </button>
+    <form class="d-flex" role="search">
+      <input class="form-control me-1" type="search" placeholder="Buscar productos" aria-label="Buscar"
+        [(ngModel)]="searchQuery" [ngModelOptions]="{standalone: true}">
+      <button class="btn btn-light" type="submit" (click)="buscarProducto()"><i
+          class="fa-solid fa-magnifying-glass"></i></button>
+    </form>
     <div id="itemsMenu" class="collapse navbar-collapse mt-2">
       <ul class="navbar-nav ms-3">
         <li class="nav-item"><a class="nav-link" routerLink="/home">Inicio</a></li>
         <li class="nav-item"><a class="nav-link" routerLink="/vender">Vender</a></li>
-        <li class="nav-item"><a class="nav-link" routerLink="/promociones">Promociones</a></li>
+        <li class="nav-item"><a class="nav-link" routerLink="/">Promociones</a></li>
         <li class="btn-group" dropdown>
           <a id="button-animated" dropdownToggle role="button" class="nav-link dropdown-toggle"
             aria-controls="dropdown-animated">
@@ -25,6 +31,11 @@
           </ul>
         </li>
         <li class="nav-item"><a class="nav-link" routerLink="/ayuda">Ayuda</a></li>
+        <!-- <li class="nav-item" *ngIf="cliente === undefined; else usuario">
+          <a class="nav-link" routerLink="/login">
+            <i class="fa-solid fa-user"></i> Iniciar Sesión
+          </a>
+        </li> -->
         <li (click)="openModal()" class="nav-item">
           <div class="row">
             <div class="col text-lg-center">
@@ -39,11 +50,11 @@
         </li>
       </ul>
     </div>
-    <form class="d-flex" role="search">
-      <input class="form-control me-1" type="search" placeholder="Buscar productos" aria-label="Buscar"
-        [(ngModel)]="searchQuery" [ngModelOptions]="{standalone: true}">
-      <button class="btn btn-light" type="submit" (click)="buscarProducto()"><i
-          class="fa-solid fa-magnifying-glass"></i></button>
-    </form>
   </div>
 </nav>
+
+<!-- <ng-template #usuario>
+  <a class="nav-link" routerLink="/datos">
+    <p>Hola: {{cliente.nombre}}</p>
+  </a>
+</ng-template> -->

@@ -1,3 +1,4 @@
+import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter } from '@angular/material-moment-adapter';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
@@ -16,7 +17,7 @@ import { AlertModule } from 'ngx-bootstrap/alert';
 import { HeaderComponent } from './pages/header/header.component';
 import { ProductoComponent } from './pages/producto/producto.component';
 import { CategoriaComponent } from './pages/categoria/categoria.component';
-import { CompraComponent } from './pages/compra/compra.component';
+import { CompraComponent, MY_FORMATS } from './pages/compra/compra.component';
 import { FooterComponent } from './pages/footer/footer.component';
 import { ToastrModule } from 'ngx-toastr';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -26,11 +27,19 @@ import { RegistroComponent } from './pages/registro/registro.component';
 import { MatTable, MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTabsModule } from '@angular/material/tabs';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { FormularioProductoComponent } from './pages/venta/formularioProducto/formularioProducto.component';
 import { VentaComponent } from './pages/venta/venta.component';
+
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { TextFieldModule } from '@angular/cdk/text-field';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -59,6 +68,7 @@ import { VentaComponent } from './pages/venta/venta.component';
     ToastrModule.forRoot({
       countDuplicates: true,
       preventDuplicates: true,
+      timeOut: 2000
     }),
     FormsModule,
     ReactiveFormsModule,
@@ -75,9 +85,21 @@ import { VentaComponent } from './pages/venta/venta.component';
     MatTabsModule,
     MatFormFieldModule,
     MatOptionModule,
-    MatSelectModule
+    MatSelectModule,
+    MatStepperModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatSlideToggleModule,
+    TextFieldModule,
+    MatDatepickerModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [{
+    provide: DateAdapter,
+    useClass: MomentDateAdapter,
+    deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
+  },
+  { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },],
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

@@ -3,13 +3,13 @@
     <img src="../assets/images/logo.png" alt="">
   </div>
   <div class="text-center mt-4 name">
-    SammyShop
+    <p>SammyShop</p>
   </div>
   <form [formGroup]="formularioLogin" class="p-3 mt-3" (ngSubmit)="login()">
     <div class="form-field d-flex align-items-center">
-      <span class="far fa-user"></span>
-      <input type="text" formControlName="correoElectronico" name="correoElectronico" id="correoElectronico"
-        placeholder="Correo Electronico">
+      <i class="fa-solid fa-envelope"></i>
+      <input type="email" formControlName="correoElectronico" name="correoElectronico" id="correoElectronico"
+        placeholder="Correo Electrónico">
     </div>
     <div class="form-field d-flex align-items-center">
       <span class="fas fa-key"></span>
@@ -18,6 +18,6 @@
     <button type="submit" class="btn mt-3" [disabled]="formularioLogin.invalid">Iniciar Sesión</button>
   </form>
   <div class="text-center fs-6">
-    <p>¿No Tienes Cuenta? </p><a routerLink="/registro">Registrate</a>
+    <p>¿No Tienes Cuenta? </p><a routerLink="/registro">Regístrate</a>
   </div>
 </div>

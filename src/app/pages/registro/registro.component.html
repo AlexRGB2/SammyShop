@@ -3,7 +3,7 @@
     <img src="../assets/images/logo.png" alt="">
   </div>
   <div class="text-center mt-4 name">
-    SammyShop
+    <p>SammyShop</p>
   </div>
   <form [formGroup]="formularioRegistro" class="p-3 mt-3" (ngSubmit)="registrar()">
     <div class="form-field d-flex align-items-center">
@@ -11,18 +11,18 @@
       <input type="text" formControlName="nombre" name="nombre" id="nombre" placeholder="Nombre">
     </div>
     <div class="form-field d-flex align-items-center">
-      <span class="far fa-user"></span>
+      <i class="fa-solid fa-envelope"></i>
       <input type="text" formControlName="correoElectronico" name="correoElectronico" id="correoElectronico"
-        placeholder="Correo Electronico">
+        placeholder="Correo Electrónico">
     </div>
     <div class="form-field d-flex align-items-center">
       <span class="fas fa-key"></span>
       <input type="password" formControlName="contrasena" name="contrasena" id="contrasena" placeholder="Contraseña">
     </div>
     <div class="form-field d-flex align-items-center">
-      <span class="far fa-user"></span>
-      <input type="text" formControlName="numeroTelefono" name="numeroTelefono" id="numeroTelefono"
-        placeholder="Numero Telefono">
+      <i class="fa-solid fa-phone"></i>
+      <input type="text" formControlName="numerotelefono" name="numerotelefono" id="numerotelefono"
+        placeholder="Numero Teléfono">
     </div>
     <button type="submit" class="btn mt-3" [disabled]="formularioRegistro.invalid">Registrarse</button>
   </form>

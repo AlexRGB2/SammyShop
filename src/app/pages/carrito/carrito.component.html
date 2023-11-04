@@ -3,12 +3,12 @@
     <div class="productCart-body">
       <p>{{ product.nombre }}</p>
       <div class="productCart-body-info">
-        <p>$ {{ product.precio }}</p>
+        <p>$ {{ product.precio | currency: 'MXN' }}</p>
         <p>{{ product.cantidad }} uds</p>
       </div>
     </div>
     <div class="productCart-total">
-      <p>$ {{ totalProduct(product.precio, product.cantidad) }}</p>
+      <p>{{ totalProduct(product.precio, product.cantidad) | currency:'MXN' }}</p>
     </div>
     <div class="productCart-buttons">
       <div class="productCart-buttons-operators">
@@ -20,10 +20,10 @@
     </div>
   </article>
   <div class="cartTotal">
-    <p class="cartTotal-total">Total: {{ totalCart() | currency }}</p>
+    <p class="cartTotal-total">Total: {{ totalCart() | currency: 'MXN' }}</p>
   </div>
   <div *ngIf="(myCart$ | async)?.length; else agregar">
-    <button class="cart-btn" routerLink="/compra" (click)="closeModal()">Realizar Compra</button>
+    <button class="cart-btn" (click)="checkIsLogin();">Realizar Compra</button>
   </div>
 </div>
 

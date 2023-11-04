@@ -1,1 +1,136 @@
-<p>compra works!</p>
+<div class="container mt-4">
+  <mat-stepper [linear]="true" labelPosition="bottom" #stepper>
+    <div *ngIf="(direcciones) && !(nuevaDireccion$ | async); else nuevaDireccion" async>
+      <mat-step>
+        <ng-template matStepLabel>Direcciónes</ng-template>
+        <div class="parent">
+          <div *ngFor="let item of direcciones; let i = index" class="mb-4" class="card" style="width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title">Calle: {{item.calle}}</h5>
+              <h6 class="card-subtitle mb-2 text-muted"></h6>
+              <p class="card-text">
+                Código Postal: {{item.codigo_postal}} - {{item.estado}} - {{item.municipio}}
+                <br>
+                {{cliente.nombre}} - {{cliente.numerotelefono}}
+              </p>
+              <button matStepperNext type="button" class="btn btn-primary"
+                (click)="selectAddress(item)">Seleccionar</button>
+            </div>
+          </div>
+        </div>
+        <button type="button" class="btn btn-info mt-4" (click)="setNuevaDireccion()">Agregar Dirección</button>
+        <div class="text-lg-center mt-4">
+          <button matStepperNext class="btn btn-primary">Siguiente</button>
+        </div>
+      </mat-step>
+    </div>
+    <ng-template #nuevaDireccion async>
+      <mat-step [stepControl]="direccion">
+        <form [formGroup]="direccion">
+          <div class="container text-lg-center">
+            <ng-template matStepLabel>Dirección</ng-template>
+            <mat-form-field class="me-3">
+              <mat-label>Código Postal</mat-label>
+              <input matInput type="number" placeholder="Código Postal" formControlName="cp" required>
+            </mat-form-field>
+            <mat-form-field class="me-3">
+              <mat-label>Estado</mat-label>
+              <input matInput placeholder="Estado" formControlName="estado" required>
+            </mat-form-field>
+            <mat-form-field class="me-3">
+              <mat-label>Municipio</mat-label>
+              <input matInput placeholder="Municipio" formControlName="municipio" required>
+            </mat-form-field>
+            <mat-form-field class="me-3">
+              <mat-label>Colonia</mat-label>
+              <input matInput placeholder="Colonia" formControlName="colonia" required>
+            </mat-form-field>
+            <mat-form-field class="me-3">
+              <mat-label>Calle</mat-label>
+              <input matInput placeholder="Calle" formControlName="calle" required>
+            </mat-form-field>
+            <mat-form-field class="me-3">
+              <mat-label>Número Exterior</mat-label>
+              <input matInput placeholder="Número Exterior" formControlName="numeroExterior">
+            </mat-form-field>
+            <mat-form-field class="me-3">
+              <mat-label>Número Interior</mat-label>
+              <input matInput placeholder="Número Interior" formControlName="numeroInterior">
+            </mat-form-field>
+            <mat-form-field class="me-3">
+              <mat-label>Referencia</mat-label>
+              <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
+                cdkAutosizeMaxRows="5" formControlName="referencia" maxlength="250"></textarea>
+            </mat-form-field>
+          </div>
+          <div class="text-lg-center mt-4">
+            <button matStepperNext class="btn btn-primary">Siguiente</button>
+          </div>
+        </form>
+      </mat-step>
+    </ng-template>
+    <mat-step [stepControl]="tarjeta" label="Datos Bancarios">
+      <form [formGroup]="tarjeta">
+        <div class="container text-lg-center">
+          <mat-form-field class="me-3">
+            <mat-label>Nombre</mat-label>
+            <input matInput formControlName="nombre" placeholder="Nombre" required>
+          </mat-form-field>
+          <mat-form-field class="me-3">
+            <mat-label>Apellido</mat-label>
+            <input matInput formControlName="apellido" placeholder="Apellido" required>
+          </mat-form-field>
+          <mat-form-field class="me-3">
+            <mat-label>Número Tarjeta</mat-label>
+            <input matInput type="text" maxlength="16" formControlName="numeroTarjeta" placeholder="Número Tarjeta"
+              required>
+          </mat-form-field>
+          <mat-form-field class="me-3">
+            <mat-label>Fecha Vencimiento</mat-label>
+            <input matInput [matDatepicker]="dp" formControlName="fechaVencimiento">
+            <mat-hint>MM/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="dp"></mat-datepicker-toggle>
+            <mat-datepicker #dp startView="multi-year" (monthSelected)="setMonthAndYear($event, dp)"
+              panelClass="example-month-picker">
+            </mat-datepicker>
+          </mat-form-field>
+          <mat-form-field class="me-3">
+            <mat-label>CVV</mat-label>
+            <input matInput type="text" maxlength="3" formControlName="cvv" placeholder="CVV" required>
+          </mat-form-field>
+        </div>
+        <div class="text-lg-center mt-4">
+          <button matStepperPrevious class="btn btn-primary me-4">Regresar</button>
+          <button matStepperNext class="btn btn-primary">Siguiente</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Terminar Compra</ng-template>
+      <div class="text-lg-center">
+        <h1>Tus Productos</h1>
+      </div>
+      <section class='FlexContainer'>
+        <div *ngFor="let item of productos">
+          <div class="card mt-4" style="width: 18rem;">
+            <img [src]="getProductImage(item.clave)" alt="...">
+            <div class="card-body">
+              <p class="card-text">
+                <strong>{{item.nombre}}</strong>
+              </p>
+              <p><strong>Precio: </strong>{{item.precio | currency:'MXN'}}</p>
+              <p><strong>Cantidad: </strong>{{item.cantidad}}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <h2>Total: {{total | currency:'MXN'}}</h2>
+      <div class="text-lg-center mt-4">
+        <button matStepperPrevious class="btn btn-primary me-4">Regresar</button>
+        <button (click)="compra()" class="btn btn-success">Finalizar</button>
+      </div>
+    </mat-step>
+  </mat-stepper>
+</div>
+
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>

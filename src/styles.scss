@@ -45,6 +45,17 @@ $sammyshop-theme: mat.define-light-theme((
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
 
 @import 'ngx-toastr/toastr-bs5-alert';
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  // background-color: rgba($color: #212529, $alpha: 1.0);
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+}
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
