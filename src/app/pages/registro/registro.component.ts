@@ -26,7 +26,6 @@ export class RegistroComponent {
     this.formularioRegistro = this.formBuilder.group({
       correoElectronico: ['', Validators.required],
       contrasena: ['', Validators.required],
-      direccion: ['', Validators.required],
       nombre: ['', Validators.required],
       telefono: [0, Validators.required]
     });
@@ -42,16 +41,14 @@ export class RegistroComponent {
       // Aquí puedes acceder a los valores del formulario
       const correoElectronico = this.formularioRegistro.get('correoElectronico')?.value;
       const contrasena = this.formularioRegistro.get('contrasena')?.value;
-      const direccion = this.formularioRegistro.get('direccion')?.value;
       const nombre = this.formularioRegistro.get('nombre')?.value;
       const telefono = this.formularioRegistro.get('telefono')?.value;
 
       // Realizar acciones con los datos obtenidos
-      console.log(correoElectronico, contrasena, direccion, nombre, telefono);
+      console.log(correoElectronico, contrasena, nombre, telefono);
 
       this.cliente.correoelectronico = correoElectronico;
       this.cliente.contrasena = contrasena;
-      this.cliente.direccion = direccion;
       this.cliente.nombre = nombre;
       this.cliente.numerotelefono = telefono;
       formatoFuncion.cliente = this.cliente;

@@ -8,7 +8,7 @@ import { Cliente } from '../models/cliente.model';
 })
 export class ClienteService {
   baseUrl: string = 'https://withered-butterfly-3935.fly.dev/';
-  cliente: any;
+  cliente!: Cliente;
 
   constructor(private httpClient: HttpClient) { }
 

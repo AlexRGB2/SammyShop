@@ -1,0 +1,90 @@
+<mat-tab-group>
+  <mat-tab label="Formulario">
+    <form [formGroup]="productoForm" class="producto-Form">
+      <div class="form-group">
+        <label for="clave">Clave:</label>
+        <input type="text" formControlName="clave" required class="form-control" (ngModelChange)="onFormChange($event)">
+        <div *ngIf="productoForm.get('clave')?.hasError('required') && productoForm.get('clave')?.touched"
+          class="error-message">
+          Ingresa la clave
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="nombre">Nombre:</label>
+        <input type="text" formControlName="nombre" required class="form-control"
+          (ngModelChange)="onFormChange($event)">
+        <div *ngIf="productoForm.get('nombre')?.hasError('required') && productoForm.get('nombre')?.touched"
+          class="error-message">
+          Ingresa el nombre
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="descripcion">Descripción:</label>
+        <textarea formControlName="descripcion" class="form-control" (ngModelChange)="onFormChange($event)"></textarea>
+        <div *ngIf="productoForm.get('descripcion')?.hasError('required') && productoForm.get('descripcion')?.touched"
+          class="error-message">
+          Ingresa el descripcion
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="stock">Stock:</label>
+        <input type="number" formControlName="stock" min="1" class="form-control"
+          (ngModelChange)="onFormChange($event)">
+        <div *ngIf="productoForm.get('stock')?.hasError('min') && productoForm.get('stock')?.touched"
+          class="error-message">
+          El stock minimo es 1
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="marca">Marca:</label>
+        <textarea formControlName="marca" class="form-control" (ngModelChange)="onFormChange($event)"></textarea>
+        <div *ngIf="productoForm.get('marca')?.hasError('required') && productoForm.get('marca')?.touched"
+          class="error-message">
+          Ingresa la marca
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="precio">Precio:</label>
+        <input type="number" formControlName="precio" min="1.00" class="form-control"
+          (ngModelChange)="onFormChange($event)">
+
+        <div *ngIf="productoForm.get('precio')?.hasError('min') && productoForm.get('precio')?.touched"
+          class="error-message">
+          El precio minimo es 1
+        </div>
+      </div>
+      <div class="form-group">
+        <mat-form-field appearance="fill" class="form-control">
+          <mat-label>Selecciona Categorías</mat-label>
+          <mat-select formControlName="categorias" multiple (ngModelChange)="onFormChange($event)">
+            <mat-option *ngFor="let objeto of categorias" [value]="objeto.categoria.id_categoria">
+              {{ objeto.categoria.nombre }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <div *ngIf="productoForm.get('categorias')?.hasError('required') && productoForm.get('categorias')?.touched"
+          class="error-message">
+          Seleccione al menos una categoría.
+        </div>
+      </div>
+    </form>
+  </mat-tab>
+  <mat-tab label="Imagenes">
+    <div class="body">
+      <label for="fileInput" class="btn-upload">Seleccionar imágenes</label>
+      <input type="file" id="fileInput" class="file-input" accept="image/*" multiple
+        (change)="handleFileSelect($event)">
+      <div class="container" id="imageContainer">
+        <div *ngFor="let image of imagesBase64" class="image-box">
+          <img src="{{ 'data:image;base64,' + image }}" alt="Image">
+          <div class="overlay">
+            <div class="overlay-content">
+              <button class="delete-button" (click)="removeImage(image)">Eliminar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-tab>
+</mat-tab-group>

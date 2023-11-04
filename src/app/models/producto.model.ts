@@ -25,5 +25,6 @@ export interface Producto {
   baja_logica: boolean;
   marca: string;
   id_categoria: number;
-  cantidad: number
+  cantidad: number;
+  id_cliente: number;
 }

@@ -22,7 +22,15 @@ import { ToastrModule } from 'ngx-toastr';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxLoadingModule, ngxLoadingAnimationTypes } from 'ngx-loading';
 import { LoginComponent } from './pages/login/login.component';
-import { RegistroComponent } from './pages/registro/registro..component';
+import { RegistroComponent } from './pages/registro/registro.component';
+import { MatTable, MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatOptionModule } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
+import { FormularioProductoComponent } from './pages/venta/formularioProducto/formularioProducto.component';
+import { VentaComponent } from './pages/venta/venta.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +43,9 @@ import { RegistroComponent } from './pages/registro/registro..component';
     CompraComponent,
     FooterComponent,
     LoginComponent,
-    RegistroComponent
+    RegistroComponent,
+    VentaComponent,
+    FormularioProductoComponent
   ],
   imports: [
     BrowserModule,
@@ -60,6 +70,12 @@ import { RegistroComponent } from './pages/registro/registro..component';
       secondaryColour: "#0B3954",
       tertiaryColour: "#0B3954",
     }),
+    MatTableModule,
+    MatPaginatorModule,
+    MatTabsModule,
+    MatFormFieldModule,
+    MatOptionModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,0 +1,137 @@
+.producto-Form {
+  /* Estilos para el formulario en general */
+  /* Puedes agregar aquí estilos como margen, padding, etc. */
+}
+
+.form-group {
+  margin-bottom: 10px;
+}
+
+label {
+  font-weight: bold;
+}
+
+.form-control {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.btn {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: #0056b3;
+}
+
+.body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  margin: 20px;
+}
+
+.file-input {
+  display: none;
+}
+
+.btn-upload {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: #007BFF;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+}
+
+.btn-upload:hover {
+  background-color: #0056b3;
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.image-box {
+  width: 120px;
+  height: 120px;
+  margin: 10px;
+  border: 2px solid #007BFF;
+  border-radius: 5px;
+  overflow: hidden;
+  position: relative;
+  background-color: #f9f9f9;
+  transition: transform 0.2s;
+}
+
+.image-box:hover {
+  transform: scale(1.05);
+}
+
+img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.image-box:hover .overlay {
+  opacity: 1;
+}
+
+.overlay-content {
+  text-align: center;
+}
+
+.delete-button {
+  background-color: #dc3545;
+  border: none;
+  color: white;
+  padding: 8px 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin: 4px 2px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition-duration: 0.4s;
+}
+
+.delete-button:hover {
+  background-color: white;
+  color: #dc3545;
+  border: 1px solid #dc3545;
+}
+
+.error-message {
+  color: red; /* Color rojo para mensajes de error */
+  font-size: 14px; /* Tamaño de fuente */
+  margin-top: 8px; /* Espacio superior para separar del campo */
+  text-align: center;
+}

@@ -1,0 +1,176 @@
+<button class="buttonAction btn btn-success" (click)="openModal(ProductModal, 1); agregar()">
+  <span class="fas fa-plus"></span>
+</button>
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource">
+    <!-- Position Column -->
+    <ng-container matColumnDef="position">
+      <th mat-header-cell *matHeaderCellDef>Id Producto</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.producto.id_producto }}
+      </td>
+    </ng-container>
+
+    <!-- Clave Column -->
+    <ng-container matColumnDef="Clave">
+      <th mat-header-cell *matHeaderCellDef>Clave</th>
+      <td mat-cell *matCellDef="let element">{{ element.producto.clave }}</td>
+    </ng-container>
+
+    <!-- Nombre Column -->
+    <ng-container matColumnDef="Nombre">
+      <th mat-header-cell *matHeaderCellDef>Nombre</th>
+      <td mat-cell *matCellDef="let element">{{ element.producto.nombre }}</td>
+    </ng-container>
+
+    <!-- Marca Column -->
+    <ng-container matColumnDef="Marca">
+      <th mat-header-cell *matHeaderCellDef>Marca</th>
+      <td mat-cell *matCellDef="let element">{{ element.producto.marca }}</td>
+    </ng-container>
+
+    <!-- Precio Column -->
+    <ng-container matColumnDef="Precio">
+      <th mat-header-cell *matHeaderCellDef>Precio</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.producto.precio | currency }}
+      </td>
+    </ng-container>
+
+    <!-- Stock Column -->
+    <ng-container matColumnDef="Stock">
+      <th mat-header-cell *matHeaderCellDef>Stock</th>
+      <td mat-cell *matCellDef="let element">{{ element.producto.stock }}</td>
+    </ng-container>
+
+    <!-- Acciones Column -->
+    <ng-container matColumnDef="Acciones">
+      <th mat-header-cell *matHeaderCellDef>Acciones</th>
+      <td mat-cell *matCellDef="let element">
+        <button class="buttonAction btn btn-warning" (click)="openModal(ProductModal, 2); actualizar(element)">
+          <span class="fas fa-pen"></span>
+        </button>
+        <button class="buttonAction btn btn-danger" (click)="openModal(deleteProductModal); eliminar(element.producto)">
+          <span class="fas fa-trash"></span>
+        </button>
+        <button type="button" class="buttonAction btn btn-info"
+          (click)="openModal(infoProductModal); info(element.producto)">
+          <span class="fas fa-circle-info"></span>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of periodic elements">
+  </mat-paginator>
+</div>
+
+
+<!-- Modal Agregar/Actualizar -->
+<ng-template #ProductModal>
+  <div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel" *ngIf="identificador == 1">
+      Agregar
+    </h5>
+    <h5 class="modal-title" id="exampleModalLabel" *ngIf="identificador == 2">
+      Actualizar
+    </h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+  </div>
+  <div class="modal-body">
+    <app-formularioProducto></app-formularioProducto>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="closeModal()">Cancelar</button>
+    <button [disabled]="!formularioValido" type="button" class="btn btn-primary" (click)="confirmar()"
+      *ngIf="identificador == 1">
+      Agregar
+    </button>
+    <button type="button" class="btn btn-primary" (click)="confirmar()" *ngIf="identificador == 2">
+      Actualizar
+    </button>
+  </div>
+</ng-template>
+
+<!-- Modal Eliminar-->
+<ng-template #deleteProductModal>
+  <div class="modal-header">
+    <h5 class="modal-title" id="staticBackdropLabel">Eliminar Producto</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+  </div>
+  <div class="modal-body">¿Seguro que deseas eliminar el producto?</div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="closeModal()">
+      Cancelar
+    </button>
+    <button type="button" class="btn btn-primary" (click)="confirmar()">
+      Eliminar
+    </button>
+  </div>
+</ng-template>
+
+<!-- Modal Info-->
+<ng-template #infoProductModal>
+  <div class="modal-header">
+    <h5 class="modal-title" id="productModalLabel">Detalles del Producto</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+  </div>
+  <div class="modal-body">
+    <mat-tab-group>
+      <!-- Pestaña de Datos del Producto -->
+      <mat-tab label="Datos Producto">
+        <div class="row">
+          <div class="col-md-12">
+            <h4>Información del Producto</h4>
+            <table class="table">
+              <tr>
+                <th>ID</th>
+                <td>{{ producto.id_producto }}</td>
+              </tr>
+              <tr>
+                <th>Name</th>
+                <td>{{ producto.nombre }}</td>
+              </tr>
+              <tr>
+                <th>Description</th>
+                <td>{{ producto.descripcion }}</td>
+              </tr>
+              <tr>
+                <th>Stock</th>
+                <td>{{ producto.stock }}</td>
+              </tr>
+              <tr>
+                <th>Brand</th>
+                <td>{{ producto.marca }}</td>
+              </tr>
+              <!-- Agrega más información según sea necesario -->
+            </table>
+          </div>
+        </div>
+      </mat-tab>
+
+      <!-- Pestaña de Imágenes del Producto -->
+      <mat-tab label="Imágenes Producto">
+        <div class="row">
+          <div class="container">
+            <div class="row">
+              <div *ngFor="let image of productImages.imgB64" class="col-md-4 mb-3">
+                <div class="image-box">
+                  <img src="{{ 'data:image;base64,' + image }}" alt="Imagen" class="img-fluid">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="closeModal()">
+      Close
+    </button>
+  </div>
+</ng-template>
