@@ -6,7 +6,8 @@ import { Compra } from '../models/compra.model';
   providedIn: 'root'
 })
 export class CompraService {
-  baseUrl = 'https://comprabacktorres.fly.dev'
+  // baseUrl = 'https://comprabacktorres.fly.dev'
+  baseUrl = 'http://localhost:3000'
 
   constructor(private http: HttpClient) {
   }

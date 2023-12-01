@@ -5,5 +5,6 @@ export interface Compra {
   fechapedido: string;
   id_direccion: number | null;
   monto: number;
+  numerotarjeta: string | null;
   productos: Producto[]
 }

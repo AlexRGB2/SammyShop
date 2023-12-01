@@ -69,7 +69,33 @@
         </form>
       </mat-step>
     </ng-template>
+
     <mat-step [stepControl]="tarjeta" label="Datos Bancarios">
+      <div class="container text-lg-center" [ngSwitch]="tipoTarjeta">
+        <div *ngSwitchCase="'BBVA'">
+          <img alt="Logo" src="../../../assets/images/bbva-logo.jpg" style="height: 200px;">
+          <p>
+            Con nuestra tarjeta tienes los beneficios en está compra:
+          </p>
+          <p>- 15% de descuento.</p>
+          <p>- 12 meses sin intereses.</p>
+        </div>
+        <div *ngSwitchCase="'Banorte'">
+          <img alt="Logo" src="../../../assets/images/banorte-logo.jpg" style="height: 200px;">
+          <p>
+            Con nuestra tarjeta tienes los beneficios en está compra:
+          </p>
+          <p>- 10% de descuento.</p>
+          <p>- Empieza a pagar está compra en los siguientes 3 meses.</p>
+        </div>
+        <div *ngSwitchCase="'Santander'">
+          <img alt="Logo" src="../../../assets/images/banco-santander-mexico-logo.png" style="height: 200px;">
+          <p>
+            Con nuestra tarjeta tienes los beneficios en está compra:
+          </p>
+          <p>- 5% de CashBack.</p>
+        </div>
+      </div>
       <form [formGroup]="tarjeta">
         <div class="container text-lg-center">
           <mat-form-field class="me-3">
@@ -83,7 +109,7 @@
           <mat-form-field class="me-3">
             <mat-label>Número Tarjeta</mat-label>
             <input matInput type="text" maxlength="16" formControlName="numeroTarjeta" placeholder="Número Tarjeta"
-              required>
+              required (ngModelChange)="checkTypeCard()">
           </mat-form-field>
           <mat-form-field class="me-3">
             <mat-label>Fecha Vencimiento</mat-label>

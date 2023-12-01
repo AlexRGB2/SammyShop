@@ -20,17 +20,10 @@ img {
   // grid-row-gap: 5px;
 }
 
-/*
-* Design by Robert Mayer:https://goo.gl/CJ7yC8
-*
-*I intentionally left out the line that was supposed to be below the subheader simply because I don't like how it looks.
-*
-* Chronicle Display Roman font was substituted for similar fonts from Google Fonts.
-*/
 
 .wrapper {
   background-color: #ffffff;
-  height: 420px;
+  height: 450px;
   width: 654px;
   margin: 15px 15px;
   border-radius: 7px 7px 7px 7px;
@@ -56,11 +49,13 @@ img {
   width: 327px;
   border-radius: 0 7px 10px 7px;
   background-color: #ffffff;
+  text-overflow: ellipsis;
 }
 
 .product-text {
   height: 300px;
   width: 327px;
+
 }
 
 .product-text h1 {
@@ -86,7 +81,7 @@ img {
 }
 
 .product-text p {
-  height: 125px;
+  height: 134px;
   margin: 0 0 0 38px;
   font-family: 'Playfair Display', serif;
   color: #8d8d8d;
@@ -99,7 +94,7 @@ img {
 .product-price-btn {
   height: 103px;
   width: 327px;
-  margin-top: 17px;
+  margin-top: 69px;
   position: relative;
 }
 

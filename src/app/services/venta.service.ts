@@ -8,6 +8,7 @@ import { ImageResponse } from '../models/imageResponse.model';
 })
 export class VentaService {
   baseUrl: string = 'https://productosbacktorres.fly.dev/';
+  // baseUrl = 'http://localhost:3000/'
   private formularioValido = new BehaviorSubject<boolean>(false);
   private productoData = new BehaviorSubject<any>(null);
   private productoUpdate = new BehaviorSubject<any>(null);

@@ -44,6 +44,7 @@ export class CompraComponent implements OnDestroy {
   direccionCliente: any;
   total = this.carritoService.totalCart();
   loading: boolean = false;
+  tipoTarjeta: string | null = '';
 
   direccion = this._formBuilder.group({
     cp: ['', Validators.required],
@@ -149,7 +150,8 @@ export class CompraComponent implements OnDestroy {
         fechapedido: moment().format('YYYY-MM-DD'),
         id_direccion: this.direccionCliente.id_direccion,
         monto: this.carritoService.totalCart(),
-        productos: []
+        productos: [],
+        numerotarjeta: this.tarjeta.controls['numeroTarjeta'].value,
       }
     } else {
       compra = {
@@ -157,7 +159,8 @@ export class CompraComponent implements OnDestroy {
         fechapedido: moment().format('YYYY-MM-DD'),
         id_direccion: null,
         monto: this.carritoService.totalCart(),
-        productos: []
+        productos: [],
+        numerotarjeta: this.tarjeta.controls['numeroTarjeta'].value,
       }
     }
 
@@ -233,7 +236,6 @@ export class CompraComponent implements OnDestroy {
         id_cliente: this.cliente.idcliente
       }
     }
-    console.log(direccion)
 
     promesa = new Promise((resolve) => {
       this.clienteService.insertDirection(direccion).subscribe((resp: any) => {
@@ -263,6 +265,21 @@ export class CompraComponent implements OnDestroy {
 
   getDirection(id: number) {
     return this.clienteService.getDirection(id);
+  }
+
+  checkTypeCard() {
+    if (this.tarjeta.value) {
+      let numeros = this.tarjeta.controls['numeroTarjeta'].value?.substring(0, 4);
+      if (numeros == "1523") {
+        this.tipoTarjeta = 'BBVA'
+      } else if (numeros == "4913") {
+        this.tipoTarjeta = 'Banorte'
+      } else if (numeros == "4915") {
+        this.tipoTarjeta = 'Santander'
+      } else {
+        this.tipoTarjeta = ''
+      }
+    }
   }
 
 }
